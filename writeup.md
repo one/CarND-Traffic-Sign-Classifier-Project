@@ -15,7 +15,7 @@ The goals / steps of this project were the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/visualization.jpg "Visualization"
+[image1]: ./images/training_data_histogram.png "Visualization"
 [image2]: ./examples/grayscale.jpg "Grayscaling"
 [image3]: ./examples/random_noise.jpg "Random Noise"
 [image4]: ./examples/placeholder.png "Traffic Sign 1"
@@ -35,24 +35,20 @@ The submission includes a writeup, which you're reading right now!
 And here is a link to my [project code](https://github.com/one/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb).
 
 ### II. Data Set Summary & Exploration
-TODO
 
 #### 1. Basic summary of the data set.
-TODO
 
-I used the pandas library to calculate summary statistics of the traffic
-signs data set:
+Summary statistics of the traffic signs data set:
 
-* The size of training set is ?
-* The size of the validation set is ?
-* The size of test set is ?
-* The shape of a traffic sign image is ?
-* The number of unique classes/labels in the data set is ?
+* The size of training set is *34799*
+* The size of the validation set is *4410*
+* The size of test set is *12630*
+* The shape of a traffic sign image is *(32, 32, 3)*
+* The number of unique classes/labels in the data set is *43*
 
-#### 2. Exploratory visualization of the dataset.
-TODO
+#### 2. Exploratory visualization of the data set.
 
-Here is an exploratory visualization of the data set. It is a bar chart showing how the data ...
+Here is a bar chart showing how the traffic sign classes are distributed in the training data set. You can see that some classes (e.g. 1 and 2) are much more common than others (e.g. 0 and 19).
 
 ![alt text][image1]
 
