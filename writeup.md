@@ -16,13 +16,6 @@ The goals / steps of this project were the following:
 [//]: # (Image References)
 
 [image1]: ./images/training_data_histogram.png "Visualization"
-[image2]: ./examples/grayscale.jpg "Grayscaling"
-[image3]: ./examples/random_noise.jpg "Random Noise"
-[image4]: ./examples/placeholder.png "Traffic Sign 1"
-[image5]: ./examples/placeholder.png "Traffic Sign 2"
-[image6]: ./examples/placeholder.png "Traffic Sign 3"
-[image7]: ./examples/placeholder.png "Traffic Sign 4"
-[image8]: ./examples/placeholder.png "Traffic Sign 5"
 
 ## Rubric Points
 #### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
@@ -53,7 +46,6 @@ Here is a bar chart showing how the traffic sign classes are distributed in the 
 ![alt text][image1]
 
 ### III. Design and Test a Model Architecture
-TODO
 
 #### 1. Preprocessing the image data.
 TODO
@@ -72,15 +64,18 @@ My final model consisted of the following layers:
 | Layer         		|     Description	        					| 
 |:---------------------:|:---------------------------------------------:| 
 | Input         		| 32x32x3 RGB image   							| 
-| Convolution 3x3     	| 1x1 stride, same padding, outputs 32x32x64 	|
-| RELU					|												|
-| Max pooling	      	| 2x2 stride,  outputs 16x16x64 				|
-| Convolution 3x3	    | etc.      									|
-| Fully connected		| etc.        									|
-| Softmax				| etc.        									|
-|						|												|
-|						|												|
- 
+| Convolution 5x5     	| 2x2 stride, VALID padding, outputs 28x28x8 	|
+| RELU					|						simple activation function						|
+| Max pooling	      	| 2x2 stride,  outputs 14x14x8 				|
+| Convolution 5x5     	| 2x2 stride, VALID padding, outputs 10x10x20 	|
+| RELU					|						simple activation function						|
+| Max pooling	      	| 2x2 stride,  outputs 5x5x20 				|
+| Flatten  |    change output shape from 5x5x20 to 500 |
+| Fully connected with dropout		|   output: 240									|
+| RELU					|						simple activation function						|
+| Fully connected	with dropout	|   output: 168									|
+| RELU					|						simple activation function						|
+| Output layer |   output: 10   |
 
 #### 3. Training the model.
 TODO
