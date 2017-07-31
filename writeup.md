@@ -5,8 +5,8 @@
 ---
 
 The goals / steps of this project were the following:
-* Load the data set (see below for links to the project data set)
-* Explore, summarize and visualize the data set
+* Load the dataset (see below for links to the project dataset)
+* Explore, summarize and visualize the dataset
 * Design, train and test a model architecture
 * Use the model to make predictions on new images
 * Analyze the softmax probabilities of the new images
@@ -16,6 +16,16 @@ The goals / steps of this project were the following:
 [//]: # (Image References)
 
 [image1]: ./images/training_data_histogram.png "Visualization"
+[image2]: ./images/downloaded_32x32/img0.png "downloaded image 1"
+[image3]: ./images/downloaded_32x32/img1.png "downloaded image 2"
+[image4]: ./images/downloaded_32x32/img2.png "downloaded image 3"
+[image5]: ./images/downloaded_32x32/img3.png "downloaded image 4"
+[image6]: ./images/downloaded_32x32/img4.png "downloaded image 5"
+[image7]: ./images/downloaded_32x32/img5.png "downloaded image 6"
+[image8]: ./images/downloaded_32x32/img6.png "downloaded image 7"
+[image9]: ./images/downloaded_32x32/img7.png "downloaded image 8"
+[image10]: ./images/downloaded_32x32/img8.png "downloaded image 9"
+[image11]: ./images/downloaded_32x32/img9.png "downloaded image 10"
 
 ## Rubric Points
 #### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
@@ -27,112 +37,113 @@ The submission includes a writeup, which you're reading right now!
 
 And here is a link to my [project code](https://github.com/one/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb).
 
-### II. Data Set Summary & Exploration
+### II. Dataset Summary & Exploration
 
-#### 1. Basic summary of the data set.
+#### 1. Basic summary of the dataset.
 
-Summary statistics of the traffic signs data set:
+Summary statistics of the traffic signs dataset:
 
 * The size of training set is *34799*
 * The size of the validation set is *4410*
 * The size of test set is *12630*
 * The shape of a traffic sign image is *(32, 32, 3)*
-* The number of unique classes/labels in the data set is *43*
+* The number of unique classes/labels in the dataset is *43*
 
-#### 2. Exploratory visualization of the data set.
+#### 2. Exploratory visualization of the dataset.
 
-Here is a bar chart showing how the traffic sign classes are distributed in the training data set. You can see that some classes (e.g. 1 and 2) are much more common than others (e.g. 0 and 19).
+Here is a bar chart showing how the traffic sign classes are distributed in the training dataset. You can see that some classes (e.g. 1 and 2) are much more common than others (e.g. 0 and 19).
 
-![alt text][image1]
+![histogram][image1]
+
+For visualizing the dataset, I also printed out one image of each traffic sign class in the [jupyter notebook](https://github.com/one/CarND-Traffic-Sign-Classifier-Project/blob/master/report.html).
 
 ### III. Design and Test a Model Architecture
 
 #### 1. Preprocessing the image data.
-TODO
 
-- no grayscale
-- shuffle the training data
-- normalization
+For preprocessing the data I used the following steps:
+- shuffle the training data, to get a random order of the images
+- normalization of the image data: [0 .. 255] --> [0.1 .. 0.9]
+
+I did NOT convert the images to grayscale to not lose the color information. I found that with my setup the prediction accuracy of the validation dataset dropped by 0.01, when converting the images to grayscale.
+
 
 #### 2. Final model architecture.
-TODO
 
-- model type, layers, layer sizes, connectivity, etc.
+I used the LeNet architecture as a starting point, which works very well on 32x32 images. To adapt it to the colored images and the larger number of output classes, I doubled the size of every network layer.
 
 My final model consisted of the following layers:
 
 | Layer         		|     Description	        					| 
 |:---------------------:|:---------------------------------------------:| 
 | Input         		| 32x32x3 RGB image   							| 
-| Convolution 5x5     	| 2x2 stride, VALID padding, outputs 28x28x8 	|
+| Convolution 5x5     	| 2x2 stride, VALID padding, outputs 28x28x12 	|
 | RELU					|						simple activation function						|
-| Max pooling	      	| 2x2 stride,  outputs 14x14x8 				|
-| Convolution 5x5     	| 2x2 stride, VALID padding, outputs 10x10x20 	|
+| Max pooling	      	| 2x2 stride,  outputs 14x14x12 				|
+| Convolution 5x5     	| 2x2 stride, VALID padding, outputs 10x10x32 	|
 | RELU					|						simple activation function						|
-| Max pooling	      	| 2x2 stride,  outputs 5x5x20 				|
-| Flatten  |    change output shape from 5x5x20 to 500 |
+| Max pooling	      	| 2x2 stride,  outputs 5x5x32 				|
+| Flatten  |    change output shape from 5x5x32 to 800 |
 | Fully connected with dropout		|   output: 240									|
 | RELU					|						simple activation function						|
 | Fully connected	with dropout	|   output: 168									|
 | RELU					|						simple activation function						|
-| Output layer |   output: 10   |
+| Output layer |   output: 43   |
 
 #### 3. Training the model.
-TODO
 
-- optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
+For training the model, I used the following parameters:
 
-To train the model, I used an ....
+- optimizer: AdamOptimizer (tensorflow)
+- batch size: 128
+- number of epochs: 20
+- learning rate: 0.0005
+- dropout rate: 0.5
 
-#### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
-TODO
+
+#### 4. The approach for finding a solution and getting the validation set accuracy to be at least 0.93.
 
 My final model results were:
-* training set accuracy of ?
-* validation set accuracy of ? 
-* test set accuracy of ?
+* validation set accuracy of 0.960
+* test set accuracy of 0.944
 
-If an iterative approach was chosen:
-* What was the first architecture that was tried and why was it chosen?
-* What were some problems with the initial architecture?
-* How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or underfitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
-* Which parameters were tuned? How were they adjusted and why?
-* What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
+I started off with the standard LeNet architecture from class, because this architecture is able to classify 32p by 32p images quite good by default (as discussed in class).
+With standard LeNet, I reached a validation set accuracy of about 0.89.
 
-If a well known architecture was chosen:
-* What architecture was chosen?
-* Why did you believe it would be relevant to the traffic sign application?
-* How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
- 
+To improve the accuracy, I added dropout to the fully connected layers of the network. I found a dropout rate of 0.5 to be the optimum for this architecture.
+I also doubled the size of each layer in the network to match the fact that the number of output classes in the German traffic sign dataset (n_classes = 43) is much higher than in the MNIST dataset (n_classes = 10). And also to match the fact that there is more information in the colored traffic sign images than in the grayscale images of the MNIST dataset.
+
+The validation set accuracy of 0.96 - which is 0.03 points higher than the minimum expectation - shows that the model works well.
 
 ### IV. Test a Model on New Images
-TODO
 
-#### 1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
-TODO
+#### 1. Additional German traffic signs found on the web.
 
-Here are five German traffic signs that I found on the web:
+Here are not five but ten German traffic signs that I found on the web:
 
-![alt text][image4] ![alt text][image5] ![alt text][image6] 
-![alt text][image7] ![alt text][image8]
+![traffic sign image][image2] ![traffic sign image][image3] ![traffic sign image][image4] ![traffic sign image][image5] ![traffic sign image][image6]
+![traffic sign image][image7] ![traffic sign image][image8] ![traffic sign image][image9] ![traffic sign image][image10] ![traffic sign image][image11]
 
-The first image might be difficult to classify because ...
+The first image might be difficult to classify because is shows the traffic sign a litte bit from the side, so the image is a bit distorted. The other nine images should be easyer to classify.
 
-#### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set 
-TODO
+#### 2. Predictions on these new traffic signs.
 
 Here are the results of the prediction:
 
 | Image			        |     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| Stop Sign      		| Stop sign   									| 
-| U-turn     			| U-turn 										|
-| Yield					| Yield											|
-| 100 km/h	      		| Bumpy Road					 				|
-| Slippery Road			| Slippery Road      							|
+| (1) Speed limit (30km/h)	| (1) Speed limit (30km/h)	| 
+| (1) Speed limit (30km/h)	| (1) Speed limit (30km/h)	| 
+| (1) Speed limit (30km/h)	| (1) Speed limit (30km/h)	| 
+| (2) Speed limit (50km/h)	| (2) Speed limit (50km/h)	|
+| (11)	Right-of-way at the next intersection	| (11) Right-of-way at the next intersection	|
+| (12)	Priority road		| (12) Priority road		|
+| (40)	Roundabout mandatory| (40) Roundabout mandatory	|
+| (9) No passing			| (9) No passing   			|
+| (9) No passing			| (9) No passing   			|
+| (2) Speed limit (50km/h)	| (2) Speed limit (50km/h)	|
 
-
-The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This compares favorably to the accuracy on the test set of ...
+The model was able to correctly guess 10 of the 10 traffic signs, which gives an accuracy of 100%. This compares favorably to the accuracy on the test set of 94%.
 
 #### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability.
 TODO
